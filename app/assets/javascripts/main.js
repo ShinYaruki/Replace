@@ -1,0 +1,18 @@
+$(function()  {
+//// タブのDOM要素を取得し、変数で定義
+  let tabs = $(".main__left__title");
+//// クラスの切り替えをtabSwitch関数で定義
+  function tabSwitch() {
+//// 全てのactiveクラスのうち、最初の要素を削除
+    $('.active').removeClass("active");
+//// クリックしたタブにactiveクラスを追加
+    $(this).addClass("active");
+//// 何番目の要素がクリックされたかを、配列tabsから要素番号を取得
+    const index = tabs.index(this);
+//// クリックしたタブに対応するshowクラスを追加する
+    $(".main__left__contents").removeClass("show").eq(index).addClass("show");
+  }
+//// タブがクリックされたらtabSwitch関数を呼び出す
+  tabs.click(tabSwitch);
+
+});

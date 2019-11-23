@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Replace</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="top">
+      <p>学習や仕事が捗りそうな、場所と音楽を紹介しています</p>
+      </div>
+      <div class="top__content">
+        <div class="top__content__left">
+          <%= link_to "Replace" ,root_path %>
+        </div>
+        <div class="top__content__right">
+          <div class="top__content__right__icon"><%= link_to "about" , root_path %></div>
+          <% if user_signed_in? %>
+            <div class="top__content__right__icon">
+              <%= link_to current_user.nickname , root_path %>
+            </div>
+          <% else %>
+            <div class="top__content__right__icon">
+              <%= link_to "はじめる", new_user_registration_path,class:"top__content__right__icon" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= yield %>
+  </body>
+</html>
