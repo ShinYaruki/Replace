@@ -14,8 +14,11 @@ class PlacesController < ApplicationController
   # def update
   # end
 
+  def show
+  end
+
   private
   def place_params
-    params.require(:place).permit(:image,:name,:address,:content)
+    params.require(:place).permit(:image,:name,:address,:open,:close,:number,:content,:sheet,:station,:walk,ptag_ids: [])
   end
 end
