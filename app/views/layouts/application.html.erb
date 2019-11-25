@@ -14,25 +14,27 @@
   </head>
 
   <body>
-    <div class="header">
-      <div class="top">
-      <p>学習や仕事が捗りそうな、場所と音楽を紹介しています</p>
-      </div>
-      <div class="top__content">
-        <div class="top__content__left">
-          <%= link_to "Replace" ,root_path %>
+    <div class="modal-fixed">
+      <div class="header">
+        <div class="top">
+        <p>学習や仕事が捗りそうな、場所と音楽を紹介しています</p>
         </div>
-        <div class="top__content__right">
-          <div class="top__content__right__icon"><%= link_to "about" , root_path %></div>
-          <% if user_signed_in? %>
-            <div class="top__content__right__icon">
-              <%= link_to current_user.nickname , root_path %>
-            </div>
-          <% else %>
-            <div class="top__content__right__icon">
-              <%= link_to "はじめる", new_user_registration_path,class:"top__content__right__icon" %>
-            </div>
-          <% end %>
+        <div class="top__content">
+          <div class="top__content__left">
+            <%= link_to "Replace" ,root_path %>
+          </div>
+          <div class="top__content__right">
+            <div class="top__content__right__icon"><%= link_to "about" , root_path %></div>
+            <% if user_signed_in? %>
+              <div class="top__content__right__icon">
+                <%= link_to current_user.nickname , root_path %>
+              </div>
+            <% else %>
+              <div class="top__content__right__icon">
+                <%= link_to "はじめる", new_user_registration_path,class:"top__content__right__icon" %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

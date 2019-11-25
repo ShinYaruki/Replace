@@ -12,7 +12,7 @@
 <div class="main">
 <%# メインコンテンツコーナー %>
   <div class="main__left">
-<%# タブ選択肢ボタンの記述 %>  
+    <%# タブ選択肢ボタンの記述 %>  
     <div class="main__left__tag">
       <div class="main__left__title active">
         <p id="place",class="place-text menu-item" >PLACE
@@ -29,21 +29,30 @@
         <a href="#"><i class="icon fas fa-cog"></i></a>
       </div>
     </div>
-<%# タブ選択肢ボタンの記述ここまで %>
+    <%# タブ選択肢ボタンの記述ここまで %>
 
-<%# PLACEタブ内の記述(デフォルトはここを表示) %>
+    <%# PLACEタブ内の記述(デフォルトはここを表示) %>
     <div class="main__left__contents show">
       <% @places.each do |place| %>
-        <div class="main__left__content place__show">
-          <img class="content__img" src="<%= place.image %>" >
-          <p class="content content__store"><%= place.name %>
-          <p clas="content content__address">〒<%= place.address %>
-        </div>
+          <div class="main__left__content place__show" 
+          data-name="<%= place.name %>" data-address="<%= place.address %>"
+          data-open="<%= place.open %>" data-close="<%= place.close %>" 
+          data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
+          data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
+          data-checkbox="<% place.ptags.each do |ptag| %> 
+                          <div class='check-icon'> <%= ptag.name %> </div> 
+                        <% end %>" >
+            <img class="content__img" src="<%= place.image %>" >
+            <p class="content content__store"><%= place.name %>
+            <p class="content content__address"><%= place.address %>
+            <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
+            <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
+          </div>
       <% end %>
     </div>
-<%# PLACEタブ内の記述ここまで %>    
+    <%# PLACEタブ内の記述ここまで %>    
 
-<%# MUSICタブ内の記述 %>
+    <%# MUSICタブ内の記述 %>
     <div class="main__left__contents">
       <% @musics.each do |music| %>
       <div class="main__left__content">
@@ -51,77 +60,122 @@
           <iframe data-src="<%= music.url %>"></iframe>
         </div>
         <p class="content content__title"><%= music.name %>
-        <p class="content content__star"><%= music.address %>
+        <p class="content content__playtime"><%= music.playtime %>
       </div>
       <% end %>
     </div> 
-<%# MUSICタブ内の記述ここまで %>
+    <%# MUSICタブ内の記述ここまで %>
 
-<%# マイページタブ内の記述 %>
+    <%# マイページタブ内の記述 %>
     <div class="main__left__contents">
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"user__destroy" %>
     </div>
-<%# マイページタブ内の記述ここまで %>
+    <%# マイページタブ内の記述ここまで %>
   </div>
+  <%# main__leftの記述ここまで %>
 
-
-<%# まだ何に使うか決めていないゾーン %>
+  <%# まだ何に使うか決めていないゾーン %>
   <div class="main__right">
     <div class="main__right__about">
       人気のスポット
         <div class="main__right__popular">
     </div>
   </div>
-<%# まだ何に使うか決めていないゾーンここまで %>
+  <%# まだ何に使うか決めていないゾーンここまで %>
 </div>
 <%# メインコンテンツコーナー終了 %>
 
 <%# 投稿機能モーダルここから %>
 <script>
 $(function(){
+  //クリックするとモーダルを表示させる記述
   $('.open-place').click(function(){
-    $("body").append(` <div class="modal">
-                        <div class="close">×</div>
-                        <div class="new-post">新規投稿(PLACE)<br></div>
-                        <div class="modal-form">
-                          <%= form_with(model: @place,action:"/places",local: true) do |form| %>
-                            <p>店のイメージ画像を入力してね(URL)</p>
-                            <%= form.text_field :image, placeholder:"イメージ写真のURLを入力", class: :form_control %>
-                            <p>店の名前を入力してね</p>
-                            <%= form.text_field :name, placeholder:"店名を入力",class: :form_control %>
-                            <p>店の住所を入力してね</p>
-                            <%= form.text_field :address, placeholder:"住所を入力", class: :form_control %>
-                            <p>店の詳細を教えてね</p>
-                            <%= form.text_area :content, placeholder:"情報を入力" ,rows:"8", class: :form_control_area %> <br>
-                            <%= form.submit "送信する", id: "submit-btn" %>
-                          <% end %>
+    //モーダル表示時に背景固定する記述 実装できてない為米アウト
+    //   posi = $(window).scrollTop();
+    // $('.modal-fixed').css({
+    //   position: 'fixed',
+    //   top: -1 * posi });
+    $("body").append(`  <div class="modal">
+                          <div class="modal__css">
+                            <div class="close close__1">×</div>
+                            <div class="close close__2">×</div>
+                            <div class="close close__3">×</div>
+                            <div class="close close__4">×</div>
+                            <div class="new-post">新規投稿(PLACE)<br></div>
+                            <div class="modal-form">
+                              <%= form_with(model: @place,action:"/places",local: true) do |form| %>
+                                <%= form.label :name, "店の名前" %>
+                                <%= form.text_field :name, placeholder:"店名を入力",class: :form_control %><br>
+                                <%= form.label :address, "店の住所" %>
+                                <%= form.text_field :address, placeholder:"住所を入力", class: :form_control %><br>
+                                <%= form.label :station, "最寄り駅" %>
+                                <%= form.text_field :station, placeholder:"○○線○○駅○○口", class: :form_control_short %>
+                                <%= form.label :walk, "徒歩" %>
+                                <%= form.text_field :walk, placeholder:"徒歩○○分", class: :form_control_short %><br>
+                                <%= form.label :open, "開店時間" %>
+                                <%= form.text_field :open, placeholder:"hh:mm",class: :form_control_short %>
+                                <%= form.label :close, "閉店時間" %>
+                                <%= form.text_field :close, placeholder:"hh:mm",class: :form_control_short %><br>
+                                <%= form.label :number, "電話番号" %>
+                                <%= form.text_field :number, placeholder:"XXX-XXXX-XXXX",class: :form_control %><br>
+                                <%= form.label :sheet, "座席の数" %>
+                                <%= form.text_field :sheet, placeholder:"席数を入力(数字のみ)",class: :form_control %><br>
+                                <%= form.label :image, "店舗写真" %>
+                                <%= form.text_field :image, placeholder:"イメージ写真(URL)入力", class: :form_control %><br>
+                                <div class="field">
+                                <p>店の特徴にチェック</p>
+                                  <div class="checkbox">
+                                  <%= form.collection_check_boxes(:ptag_ids, Ptag.all, :id, :name) do |ptag| %>
+                                    <%= ptag.label do %>
+                                      <%= ptag.check_box %>
+                                      <%= ptag.text %>
+                                    <% end %>
+                                  <% end %>
+                                  </div>
+                                </div>
+                                <%= form.label :content, "店舗詳細" ,class: :content_title %>
+                                <%= form.text_area :content, placeholder:"情報を入力(Wi-Fi制限有りなど)" ,rows:"3", class: :form_control_area %> <br>
+                                <%= form.submit "送信", id: "submit-btn" %>
+                              <% end %>
+                            </div>
+                          </div>
                         </div>
-                      </div>
                       <div class="overlay"></div>'`);
     $(".modal,.overlay").fadeIn("slow");
+    //モーダルを表示させる記述ここまで
+    //モーダルを消す記述
     $(".close,.overlay,#submit-btn").click(function(){
+      //モーダル表示時の背景固定オプションを解除する記述 米アウト
+      // $('.modal-fixed').attr('style', '');
+      // $('html, body').prop({scrollTop: posi});
       $(".modal,.overlay").fadeOut("slow",function(){
       $(".modal,.overlay").remove();
       });
     });
   });
+    //モーダルを消す記述ここまで
 
   $('.open-music').click(function(){
   $("body").append(` <div class="modal">
-                      <div class="close">×</div>
-                      <div class="new-post">新規投稿(MUSIC)<br></div>
-                      <div class="modal-form">
-                        <%= form_with(model: @music,action:"/musics",local: true) do |form| %>
-                          <p>YouTubeのURLを教えてね(URL)</p>
-                          <%= form.text_field :url, placeholder:"YouTubeのURLを入力", class: :form_control %>
-                          <p>楽曲(動画)のタイトルを教えてね</p>
-                          <%= form.text_field :name, placeholder:"楽曲(動画)のタイトルを入力",class: :form_control %>
-                          <p>再生時間を教えてね</p>
-                          <%= form.text_field :address, placeholder:"再生時間を入力", class: :form_control %>
-                          <p>動画の詳細を教えてね</p>
-                          <%= form.text_area :content, placeholder:"動画の情報を入力" ,rows:"8", class: :form_control_area %> <br>
-                          <%= form.submit "送信する", id: "submit-btn" %>
-                        <% end %>
+                      <div class="modal__css">
+                      <div class="close close__1">×</div>
+                      <div class="close close__2">×</div>
+                      <div class="close close__3">×</div>
+                      <div class="close close__4">×</div>
+                        <div class="new-post">新規投稿(MUSIC)<br></div>
+                        <div class="modal-form">
+                          <%= form_with(model: @music,action:"/musics",local: true) do |form| %>
+                            <%= form.label :url, "紹介動画" %>
+                            <%= form.text_field :url, placeholder:"YouTubeのURLを入力", class: :form_control %><br>
+                            <%= form.label :name ,"タイトル" %>
+                            <%= form.text_field :name, placeholder:"楽曲(動画)のタイトルを入力",class: :form_control %><br>
+                            <%= form.label :playtime ,"再生時間" %>
+                            <%= form.text_field :playtime, placeholder:"再生時間を入力(hh:mm:ss)", class: :form_control %><br>
+                            <%= form.label :content ,"動画詳細" %>
+                            <%= form.text_area :content, placeholder:"動画の情報を入力" ,rows:"2", class: :form_control_area %> <br>
+                            <%= form.submit "送信する", id: "submit-btn" %>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                     <div class="overlay"></div>'`);
@@ -132,51 +186,6 @@ $(function(){
       });
     });
   });
-// 投稿機能モーダルここまで
-
-// 店の詳細ページモーダルここから
-  $('.place__show').click(function(){
-  $("body").append(` <div class="modal">
-                      <div class="modal__css">
-                        <div class="close">×</div>
-                        <div class="new-post"><<%= @place.name %><br></div>
-                        <p>googlemap
-                        // <iframe src="googlemapに相当するもの" class="map">
-                        <p>営業時間：<%= @place.openhour %>〜<%= @place.closehour %>
-                        <p>住所：<%= @place.address %>
-                        <p>電話番号：<%= @place.number %>
-                        <p>席数：<%= @place.siet %>
-                        <ul class="squere">
-                          <li class="squere wifi">Wi-Fi</li>
-                          <li class="squere plug">電源/li>
-                          <li class="relux">落ち着いた空間/li>
-                          <li class="near">駅チカ/li>
-                          <li class="night"> 深夜/li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="overlay"></div>'`);
 });
 </script>
-
-  //完成したらこれを貼り付ける 
-  // $("body").append(` <div class="modal">
-  //                     <div class="modal__css">
-  //                       <div class="close">×</div>
-  //                       <div class="new-post"><<%= @place.name %><br></div>
-  //                       <p>googlemap
-  //                       // <iframe src="googlemapに相当するもの" class="map">
-  //                       <p>営業時間：<%= @place.openhour %>〜<%= @place.closehour %>
-  //                       <p>住所：<%= @place.address %>
-  //                       <p>電話番号：<%= @place.number %>
-  //                       <p>席数：<%= @place.siet %>
-  //                       <ul class="squere">
-  //                         <li class="squere wifi">Wi-Fi</li>
-  //                         <li class="squere plug">電源/li>
-  //                         <li class="relux">落ち着いた空間/li>
-  //                         <li class="near">駅チカ/li>
-  //                         <li class="night"> 深夜/li>
-  //                       </ul>
-  //                     </div>
-  //                   </div>
-  //                   <div class="overlay"></div>'`);
+<%# 投稿機能モーダルここまで %>

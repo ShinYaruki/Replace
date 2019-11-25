@@ -10,22 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_035247) do
+ActiveRecord::Schema.define(version: 2019_11_25_071847) do
 
   create_table "musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "url"
-    t.string "name"
-    t.string "address"
-    t.string "content"
+    t.text "url"
+    t.text "name"
+    t.text "playtime"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "place_ptags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "place_id"
+    t.bigint "ptag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "name", null: false
+    t.text "address", null: false
+    t.text "image"
+    t.text "content"
+    t.text "open", null: false
+    t.text "close", null: false
+    t.text "number", null: false
+    t.text "sheet"
+    t.text "station"
+    t.text "walk"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ptags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.string "address"
-    t.string "image"
-    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
