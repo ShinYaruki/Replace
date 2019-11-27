@@ -6,6 +6,7 @@ class MusicsController < ApplicationController
 
   def create
     @music = Music.create(music_params)
+    @music.save!
   end
 
   #未実装のため
