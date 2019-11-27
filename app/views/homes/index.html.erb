@@ -1,5 +1,5 @@
 <div class="header__back">
-<%# ヘッダーに使っている画像コーナー %>
+<%# ヘッダーに使っている画像 %>
   <div class="header__image">
     <div id="photo">
       <img src="/cafe1.jpg" width="600" height="400" alt="">
@@ -10,9 +10,9 @@
 </div>
 
 <div class="main">
-<%# メインコンテンツコーナー %>
+<%# メインコンテンツ %>
   <div class="main__left">
-    <%# タブ選択肢ボタンの記述 %>  
+    <%# タブボタンの記述 %>  
     <div class="main__left__tag">
       <div class="main__left__title active">
         <p id="place",class="place-text menu-item" >PLACE
@@ -29,9 +29,9 @@
         <a href="#"><i class="icon fas fa-cog"></i></a>
       </div>
     </div>
-    <%# タブ選択肢ボタンの記述ここまで %>
+    <%# タブボタンの記述ここまで %>
 
-    <%# PLACEタブ内の記述(デフォルトはここを表示) %>
+    <%# PLACEタブ内の記述(showクラスによってデフォルトはここを表示) %>
     <div class="main__left__contents show">
       <% @places.each do |place| %>
           <div class="main__left__content place__show" 
@@ -74,27 +74,23 @@
   </div>
   <%# main__leftの記述ここまで %>
 
-  <%# まだ何に使うか決めていないゾーン %>
+  <%# 人気ランキング的なものにしたいゾーン %>
   <div class="main__right">
     <div class="main__right__about">
       人気のスポット
         <div class="main__right__popular">
     </div>
   </div>
-  <%# まだ何に使うか決めていないゾーンここまで %>
+  <%# 人気ランキング的なものにしたいゾーンここまで %>
 </div>
 <%# メインコンテンツコーナー終了 %>
 
-<%# 投稿機能モーダルここから %>
+
 <script>
+// 投稿機能モーダルここから
 $(function(){
-  //クリックするとモーダルを表示させる記述
+  //クリックすると投稿用モーダルを表示させる記述(form_withのactionを架空の/placesにし、route.rbにてcreateアクションを発火させている)
   $('.open-place').click(function(){
-    //モーダル表示時に背景固定する記述 実装できてない為米アウト
-    //   posi = $(window).scrollTop();
-    // $('.modal-fixed').css({
-    //   position: 'fixed',
-    //   top: -1 * posi });
     $("body").append(`  <div class="modal">
                           <div class="modal__css">
                             <div class="close close__1">×</div>
@@ -144,55 +140,17 @@ $(function(){
     $(".modal,.overlay").fadeIn("slow");
     //モーダルを表示させる記述ここまで
 
-    //PLACEの非同期通信を行う記述、画像のみ反映と、place__showのクリックが反応しない為、米アウト
-    // $(".new_place").submit(function(e){
-    //   e.preventDefault();
-    //   let formData = new FormData(this);
-    //   let url = $(this).attr("action");
-    //   $.ajax({
-    //     type: "POST",
-    //     url: url,
-    //     data: formData,
-    //     dataType: "json",
-    //     processData: false,
-    //     contentType: false
-    //     })
-    //     .done(function(place){
-    //       let html = `<div class="main__left__content place__show" 
-    //                   data-name="${place.name}" data-address="${place.address}"
-    //                   data-open="${place.open}" data-close="${place.close}" 
-    //                   data-number="${place.number}" data-sheet="${place.sheet}"
-    //                   data-content="${place.content}" data-station="${place.station}" data-walk="${place.walk}"
-
-    //                     <img class="content__img" src="${place.image}" >
-    //                     <p class="content content__store">${place.name}
-    //                     <p class="content content__address">${place.address}
-    //                     <p class="content content__open">営業時間：${place.open} 〜 ${place.close}
-    //                     <p class="content content__station">最寄り駅：${place.station} ${place.walk}
-    //                   </div>`
-    //       $(".main__left__contents").append(html);
-    //       $(".modal,.overlay").fadeOut("slow",function(){
-    //       $(".modal,.overlay").remove();
-    //       })
-    //     })
-    //     .fail(function(){
-    //       alert("送信に失敗しました");
-    //     });
-      // });
-    //非同期通信を行う記述ここまで
     //モーダルを消す記述
     $(".close,.overlay,#submit-btn").click(function(){
-      //モーダル表示時の背景固定オプションを解除する記述未実装 米アウト
-      // $('.modal-fixed').attr('style', '');
-      // $('html, body').prop({scrollTop: posi});
       $(".modal,.overlay").fadeOut("slow",function(){
-      $(".modal,.overlay").remove();
+        $(".modal,.overlay").remove();
+        });
       });
     });
-  });
     //モーダルを消す記述ここまで
 
   $('.open-music').click(function(){
+    //クリックすると投稿用モーダルを表示させる記述(form_withのactionを架空の/musicsにし、route.rbにてcreateアクションを発火させている)
   $("body").append(` <div class="modal">
                       <div class="modal__css">
                       <div class="close close__1">×</div>

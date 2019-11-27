@@ -8,14 +8,9 @@ class PlacesController < ApplicationController
     @place = Place.create(place_params)
     @place.save
     redirect_to root_path
-    # if @place.save
-    #   respond_to do |format|
-    #     format.html {redirect_to root_path}
-    #     format.json
-    #   end
-    # end
   end
 
+  #未実装の為
   # def edit
   # end
 

@@ -8,7 +8,8 @@ class MusicsController < ApplicationController
     @music = Music.create(music_params)
   end
 
-    # def edit
+  #未実装のため
+  # def edit
   # end
 
   # def update

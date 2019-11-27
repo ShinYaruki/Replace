@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :homes, only: [:index,:new,:edit,:update]
   resources :places , only: [:index,:show,:new,:create,:edit,:update]
   resources :musics , only: [:index,:show,:new,:create,:edit,:update]
+  # PLACE新規投稿のactionを架空URLの"/places"にセットし、placesコントローラのcreateアクションを呼び出す
   post "/places" => "places#create"
+  # MUSIC新規投稿のactionを架空URLの"/musics"にセットし、musicsコントローラのcreateアクションを呼び出す
   post "/musics" => "musics#create"
-  # get "/places/show" => "places#show"
 end

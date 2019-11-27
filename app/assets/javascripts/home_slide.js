@@ -1,3 +1,4 @@
+//トップの画像3枚が５秒おきに切り替わる記述
 $(function(){
   var setImg = '#photo';
   var fadeSpeed = 1600;
