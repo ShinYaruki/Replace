@@ -127,7 +127,6 @@ body {
   top:40px;
   right:3px;
   color:white;
-  z-index:1;
 }
 
 .main__left__contents {
@@ -180,4 +179,9 @@ body {
     height:113px;
     width:200px;
   }
+}
+
+.red {
+  font-size:8px;
+  color:red;
 }
