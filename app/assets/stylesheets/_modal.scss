@@ -10,13 +10,22 @@
   border-radius: 10px;
   z-index:2;
   text-align:center;
-  &__css {
+  &__cssplace {
     box-sizing:border-box;
     height:620px;
     width:620px;
     margin:10px;
     background-color:#FFF;
     border:2px solid #35b7e4;
+    border-radius: 10px;
+  }
+  &__cssmusic {
+    box-sizing:border-box;
+    height:620px;
+    width:620px;
+    margin:10px;
+    background-color:#FFF;
+    border:2px solid #FF5F17;
     border-radius: 10px;
   }
   &__flex {
@@ -33,7 +42,7 @@
     font-weight:bold;
     margin-left:5px;
   }
-  &__name {
+  &__pname {
     height:30px;
   }
   &__map {
@@ -54,7 +63,7 @@
   &__sheet {
     height:20px;
   }
-  &__checkbox {
+  &__pcheckbox {
     height:40px;
     &__right {
       margin: auto 0 auto 5px;
@@ -66,7 +75,20 @@
       flex-wrap: wrap;
     }
   }
-  &__edit {
+  &__mname {
+    height:30px;
+  }
+  &__url {
+    height:280px;
+    &__right{
+      margin-top:5px;
+    }
+  }
+  &__playtime {
+    height:20px;
+  }
+
+  &__pedit {
     height:34px;
     &__center {
       color:white;
@@ -83,9 +105,26 @@
       cursor: pointer;
     }
   }
+  &__medit {
+    height:34px;
+    &__center {
+      color:white;
+      font-weight:bold;
+      outline: none;
+      text-align: center;
+      line-height:30px;
+      margin:auto;
+      height:30px;
+      width:200px;
+      border-radius: 20px;
+      background-color:#D2691E;
+      box-shadow: 0px 7px 3px -3px rgba(0,0,0,0.6);;
+      cursor: pointer;
+    }
+  }
 }
 
-.modal__edit__center:active {
+.modal__pedit__center:active,.modal__medit__center:active {
   position:relative;
   box-shadow:none;
   top:3px;
@@ -95,12 +134,12 @@
   border-bottom:none;
 }
 
-.modal__name__right {
+.modal__pname__right,.modal__mname__right {
   font-size:18px;
   margin: auto 0 auto 5px;
 }
 
-.modal__checkbox__right {
+.modal__pcheckbox__right {
   display:flex;
 }
 
@@ -116,7 +155,7 @@
   margin-right:0px;
 }
 
-.close {
+.pclose {
   position:absolute;
   z-index:2;
   font-size:30px;
@@ -141,6 +180,30 @@
   }
 }
 
+.mclose {
+  position:absolute;
+  z-index:2;
+  font-size:30px;
+  color:#FF5F17;
+  font-weight:bold;
+  cursor: pointer;
+  &__1 {
+    top: -13px;
+    left:617px;
+  }
+  &__2 {
+    top:-13px;
+    left:2px;
+  }
+  &__3 {
+    bottom:-10px;
+    right:617px;
+  }
+  &__4 {
+    bottom:-10px;
+    right:2px;
+  }
+}
 
 // .close:hover {
 //   background-color:rgba(0, 0, 0, 0.3);
@@ -170,9 +233,15 @@ form {
 .form_control {
   width:500px;
   margin:10px 0;
+  &_middle{
+    margin:10px 0;
+    width:300px;
+    margin-right:10px;
+  }
   &_short {
     margin:10px 0;
-    width:210px;
+    width:100px;
+    margin-right:10px;
   }
 }
 

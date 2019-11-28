@@ -35,6 +35,9 @@ body {
     padding: 0 20px;
     &__left a {
         color:black;
+        font-family:fantasy;
+        font-size:20px;
+        margin-left:10px;
     }
     &__right {
       display: flex;
@@ -114,6 +117,10 @@ body {
   cursor: pointer;
 }
 
+.music__show {
+  cursor: pointer;
+}
+
 .main__left__title:first-child {
   border-left: solid #FFF;
 }
@@ -149,6 +156,18 @@ body {
   margin:0 20px 20px 0;
 }
 
+.place__show:hover {
+  outline:2px solid #35b7e4;
+}
+
+.music__show:hover {
+  outline:2px solid #FF5F17;
+}
+
+.mshow {
+  height:132px;
+}
+
 .content__title {
   margin-top: 30px;
 }
@@ -178,5 +197,12 @@ body {
     margin-top:5px;
     height:113px;
     width:200px;
+  }
+  &__title{
+    font-size:18px;
+    font-weight:bold;
+  }
+  &__playtime {
+    font-size: 12px;
   }
 }

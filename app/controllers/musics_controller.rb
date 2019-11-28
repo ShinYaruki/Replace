@@ -7,14 +7,17 @@ class MusicsController < ApplicationController
   def create
     @music = Music.create(music_params)
     @music.save!
+    redirect_to root_path
   end
 
-  #未実装のため
-  # def edit
-  # end
+  def edit
+    @music = Music.find(params[:id])
+  end
 
-  # def update
-  # end
+  def update
+    @music = Music.update(music_params)
+    redirect_to root_path
+  end
 
   private
 

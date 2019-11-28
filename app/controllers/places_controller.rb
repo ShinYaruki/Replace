@@ -10,12 +10,14 @@ class PlacesController < ApplicationController
     redirect_to root_path
   end
 
-  #未実装の為
-  # def edit
-  # end
+  def edit
+    @place = Plade.find(params[:id])
+  end
 
-  # def update
-  # end
+  def update
+    @place = Place.update(place_params)
+    redirect_to root_path
+  end
 
   def show
   end
