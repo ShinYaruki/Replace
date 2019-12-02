@@ -34,20 +34,21 @@
     <%# PLACEタブ内の記述(showクラスによってデフォルトはここを表示) %>
     <div class="main__left__contents show">
       <% @places.each do |place| %>
-          <div class="main__left__content place__show" 
-          data-pname="<%= place.name %>" data-address="<%= place.address %>"
-          data-open="<%= place.open %>" data-close="<%= place.close %>" 
-          data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
-          data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
-          data-pcheckbox="<% place.ptags.each do |ptag| %> 
-                          <div class='check-icon'> <%= ptag.name %> </div> 
-                        <% end %>" >
-            <img class="content__img" src="<%= place.image %>" >
-            <p class="content content__store"><%= place.name %>
-            <p class="content content__address"><%= place.address %>
-            <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
-            <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
-          </div>
+        <div class="main__left__content place__show" 
+        data-pname="<%= place.name %>" data-address="<%= place.address %>"
+        data-open="<%= place.open %>" data-close="<%= place.close %>" 
+        data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
+        data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
+        data-pcheckbox="<% place.ptags.each do |ptag| %> 
+                        <div class='check-icon'> <%= ptag.name %> </div> 
+                      <% end %>" >
+          <img class="content__img" src="<%= place.image %>" >
+          <%= render partial:"plike",locals: { place: place } %>
+          <p class="content content__store"><%= place.name %>
+          <p class="content content__address"><%= place.address %>
+          <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
+          <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
+        </div>
       <% end %>
     </div>
     <%# PLACEタブ内の記述ここまで %>    
@@ -56,14 +57,17 @@
     <div class="main__left__contents">
       <% @musics.each do |music| %>
       <div class="main__left__content music__show"
-        data-mname="<%= music.name%>" data-url="<%= music.url %>"
-        data-playtime="<%= music.playtime %>"  >
+        data-mname="<%= music.name %>" data-url="<%= music.url %>" data-artist="<%= music.artist %>"
+        data-playtime="<%= music.playtime %>" data-mcontent="<%= music.content %>" >
+        <a href="#"><i class="icon fas fa-cog music-show"></i></a>
         <div class="youtube content__movie">
           <iframe data-src="<%= music.url %>"></iframe>
         </div>
-        <div class="mshow" >
-        <p class="content content__title"><%= music.name %>
-        <p class="content content__playtime"><%= music.playtime %>
+        <%= render partial:"mlike",locals: { music: music } %>
+        <div class="mshow">
+          <p class="content content__title"><%= music.name %>
+          <p class="content content__artist"><%= music.artist %>
+          <p class="content content__playtime">再生時間：<%= music.playtime %>
         </div>
       </div>
       <% end %>
@@ -72,20 +76,25 @@
 
     <%# マイページタブ内の記述 %>
     <div class="main__left__contents">
+      <div class="mypage__show">
+        
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"user__destroy" %>
+      </div>
     </div>
     <%# マイページタブ内の記述ここまで %>
   </div>
   <%# main__leftの記述ここまで %>
+
 
   <%# 人気ランキング的なものにしたいゾーン %>
   <div class="main__right">
     <div class="main__right__about">
       人気のスポット
         <div class="main__right__popular">
+        </div>
     </div>
   </div>
-  <%# 人気ランキング的なものにしたいゾーンここまで %>
+<%# 人気ランキング的なものにしたいゾーンここまで %>
 </div>
 <%# メインコンテンツコーナー終了 %>
 
@@ -93,14 +102,14 @@
 <script>
 // 投稿機能モーダルここから
 $(function(){
-  //クリックすると投稿用モーダルを表示させる記述(form_withのactionを架空の/placesにし、route.rbにてcreateアクションを発火させている)
+  //クリックするとPLACE用投稿モーダルを表示させる記述(form_withのactionを架空の/placesにし、route.rbにてcreateアクションを発火させている)
   $('.open-place').click(function(){
     $("body").append(`  <div class="modal">
-                          <div class="modal__css">
-                            <div class="close close__1">×</div>
-                            <div class="close close__2">×</div>
-                            <div class="close close__3">×</div>
-                            <div class="close close__4">×</div>
+                          <div class="modal__cssplace">
+                            <div class="pclose pclose__1">×</div>
+                            <div class="pclose pclose__2">×</div>
+                            <div class="pclose pclose__3">×</div>
+                            <div class="pclose pclose__4">×</div>
                             <div class="new-post">新規投稿(PLACE)<br></div>
                             <div class="modal-form">
                               <%= form_with(model: @place,action:"/places/new",local: true,class: :new_place) do |form| %>
@@ -135,15 +144,14 @@ $(function(){
                                 </div>
                                 <%= form.label :content, "店舗詳細" ,class: :content_title %>
                                 <%= form.text_area :content, placeholder:"情報を入力(Wi-Fi制限有りなど)" ,rows:"3", class: :form_control_area %> <br>
-                                <%= form.submit "送信", id: "submit-btn" %>
+                                <%= form.submit "送信", id: "psubmit-btn" %>
                               <% end %>
                             </div>
                           </div>
                         </div>
-                      <div class="overlay"></div>'`);
+                      <div class="overlay"></div>`);
     $(".modal,.overlay").fadeIn("slow");
     //モーダルを表示させる記述ここまで
-
     //モーダルを消す記述
     $(".close,.overlay,#submit-btn").click(function(){
       $(".modal,.overlay").fadeOut("slow",function(){
@@ -154,13 +162,13 @@ $(function(){
     //モーダルを消す記述ここまで
 
   $('.open-music').click(function(){
-    //クリックすると投稿用モーダルを表示させる記述(form_withのactionを架空の/musicsにし、route.rbにてcreateアクションを発火させている)
+    //クリックするとMUSIC用投稿モーダルを表示させる記述(form_withのactionを架空の/musicsにし、route.rbにてcreateアクションを発火させている)
   $("body").append(` <div class="modal">
-                      <div class="modal__css">
-                      <div class="close close__1">×</div>
-                      <div class="close close__2">×</div>
-                      <div class="close close__3">×</div>
-                      <div class="close close__4">×</div>
+                      <div class="modal__cssmusic">
+                      <div class="mclose mclose__1">×</div>
+                      <div class="mclose mclose__2">×</div>
+                      <div class="mclose mclose__3">×</div>
+                      <div class="mclose mclose__4">×</div>
                         <div class="new-post">新規投稿(MUSIC)<br></div>
                         <div class="modal-form">
                           <%= form_with(model: @music,action:"/musics/new",local: true) do |form| %>
@@ -168,16 +176,18 @@ $(function(){
                             <%= form.text_field :url, placeholder:"YouTubeのURLを入力", class: :form_control %><br>
                             <%= form.label :name ,"タイトル" %><span style="color:red">※</span>
                             <%= form.text_field :name, placeholder:"楽曲(動画)のタイトルを入力",class: :form_control %><br>
+                            <%= form.label :artist ,"アーティスト" %><span style="color:red">※</span>
+                            <%= form.text_field :artist, placeholder:"アーティスト名を入力", class: :form_control %><br>
                             <%= form.label :playtime ,"再生時間" %>
                             <%= form.text_field :playtime, placeholder:"再生時間を入力(hh:mm:ss)", class: :form_control %><br>
                             <%= form.label :content ,"動画詳細" %>
                             <%= form.text_area :content, placeholder:"動画の情報を入力" ,rows:"2", class: :form_control_area %> <br>
-                            <%= form.submit "送信する", id: "submit-btn" %>
+                            <%= form.submit "送信する", id: "msubmit-btn" %>
                           <% end %>
                         </div>
                       </div>
                     </div>
-                    <div class="overlay"></div>'`);
+                    <div class="overlay"></div>`);
   $(".modal,.overlay").fadeIn("slow");
   $(".close,.overlay").click(function(){
     $(".modal,.overlay").fadeOut("slow",function(){
@@ -185,6 +195,70 @@ $(function(){
       });
     });
   });
-});
 //投稿機能モーダルここまで
+
+//編集機能モーダルここから
+//PLACE編
+$('#edit-place').click(function(){
+  $(".modal").fadeOut("slow");
+  $(".modal").remove();
+  $("body").append(`  <div class="modal">
+                        <div class="modal__css">
+                          <div class="pclose pclose__1">×</div>
+                          <div class="pclose pclose__2">×</div>
+                          <div class="pclose pclose__3">×</div>
+                          <div class="pclose pclose__4">×</div>
+                          <div class="new-post">新規投稿(PLACE)<br></div>
+                          <div class="modal-form">
+                            <%= form_with(model: @place,action:"/places/edit",local: true,class: :new_place) do |form| %>
+                              <%= form.label :name, "店の名前" %><span style="color:red">※</span>
+                              <%= form.text_field :name, placeholder:"店名を入力",class: :form_control %><br>
+                              <%= form.label :address, "店の住所" %><span style="color:red">※</span>
+                              <%= form.text_field :address, placeholder:"住所を入力", class: :form_control %><br>
+                              <%= form.label :number, "電話番号" %><span style="color:red">※</span>
+                              <%= form.text_field :number, placeholder:"XXX-XXXX-XXXX",class: :form_control %><br>
+                              <%= form.label :station, "最寄り駅" %><span style="color:red">※</span>
+                              <%= form.text_field :station, placeholder:"○○線☓☓駅△△口", class: :form_control_middle %>
+                              <%= form.label :walk, "徒歩" %>
+                              <%= form.text_field :walk, placeholder:"徒歩○○分", class: :form_control_short %><br>
+                              <%= form.label :open, "開店時間" %><span style="color:red">※</span>
+                              <%= form.text_field :open, placeholder:"hh:mm",class: :form_control_short %>
+                              <%= form.label :close, "閉店時間" %><span style="color:red">※</span>
+                              <%= form.text_field :close, placeholder:"hh:mm",class: :form_control_short %>
+                              <%= form.label :sheet, "席数" %>
+                              <%= form.text_field :sheet, placeholder:"数字のみ",class: :form_control_short %><br>
+                              <%= form.label :image, "店舗写真" %>
+                              <%= form.text_field :image, placeholder:"イメージ写真(URL)入力", class: :form_control %><br>
+                              <div class="field">
+                              <p>店の特徴にチェック</p>
+                                <div class="checkbox">
+                                <%= form.collection_check_boxes(:ptag_ids, Ptag.all, :id, :name) do |ptag| %>
+                                  <%= ptag.label do %>
+                                    <%= ptag.check_box %>
+                                    <%= ptag.text %>
+                                  <% end %>
+                                <% end %>
+                                </div>
+                              </div>
+                              <%= form.label :content, "店舗詳細" ,class: :content_title %>
+                              <%= form.text_area :content, placeholder:"情報を入力(Wi-Fi制限有りなど)" ,rows:"3", class: :form_control_area %> <br>
+                              <%= form.submit "送信", id: "psubmit-btn" %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="overlay"></div>`);
+    $(".modal").fadeIn("slow");
+    //モーダルを表示させる記述ここまで
+    //モーダルを消す記述
+    $(".close,.overlay,#submit-btn").click(function(){
+      $(".modal,.overlay").fadeOut("slow",function(){
+        $(".modal,.overlay").remove();
+        });
+      });
+    //モーダルを消す記述ここまで
+      });
+    //編集機能モーダルここから
+    //Music編
+  });
 </script>

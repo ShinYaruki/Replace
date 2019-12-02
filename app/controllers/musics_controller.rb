@@ -22,6 +22,6 @@ class MusicsController < ApplicationController
   private
 
   def music_params
-    params.require(:music).permit(:url,:name,:address,:content)
+    params.require(:music).permit(:url,:name,:artist,:playtime,:content).merge(user_id: current_user.id)
   end
 end

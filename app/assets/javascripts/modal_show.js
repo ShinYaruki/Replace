@@ -44,13 +44,13 @@ $(function(){
                            <div class="modal__content__right modal__right"></div>
                           </div>
                           <div class="modal__pedit modal__flex">
-                            <div class="modal__pedit__center">編集(未実装)</div>
+                            <div class="modal__pedit__center" id="edit-place">編集(未実装)</div>
                           </div>
                         </div>
                       </div>
                       <div class="overlay"></div>'`);
     $(".modal,.overlay").fadeIn("slow");
-    $(".close,.overlay").click(function(){
+    $(".pclose,.overlay").click(function(){
       $(".modal,.overlay").fadeOut("slow",function(){
       $(".modal,.overlay").remove()
       });
@@ -66,7 +66,7 @@ $('.place__show').click(function() {
   let station = $(this).attr('data-station');
   let walk = $(this).attr('data-walk');
   let open = $(this).attr('data-open');
-  let close = $(this).attr('data-close');
+  let close = $(this).attr('data-pclose');
   let number = $(this).attr('data-number');
   let sheet = $(this).attr('data-sheet');
   let pcheckbox = $(this).attr('data-pcheckbox');
@@ -100,6 +100,10 @@ $('.place__show').click(function() {
                             <div class="modal__url__left modal__left">動画</div>
                             <div class="modal__url__right modal__right"></div>
                           </div>
+                          <div class="modal__artist modal__flex">
+                          <div class="modal__artist__left modal__left">アーティスト名</div>
+                          <div class="modal__artist__right modal__right"></div>
+                        </div>
                           <div class="modal__playtime modal__flex">
                             <div class="modal__playtime__left modal__left">再生時間</div>
                             <div class="modal__playtime__right modal__right"></div>
@@ -109,29 +113,32 @@ $('.place__show').click(function() {
                             <div class="modal__content__right modal__right"></div>
                           </div>
                           <div class="modal__medit modal__flex">
-                            <div class="modal__medit__center">編集(未実装)</div>
+                            <div class="modal__medit__center" id="edit-music">編集(未実装)</div>
                           </div>
                         </div>
                       </div>
                       <div class="overlay"></div>`);
     $(".modal,.overlay").fadeIn("slow");
-    $(".close,.overlay").click(function(){
+    $(".mclose,.overlay").click(function(){
       $(".modal,.overlay").fadeOut("slow",function(){
       $(".modal,.overlay").remove()
       });
     });
   });
 
-  $('.mshow').click(function() {
-    let mname = $(".music__show").attr('data-mname');
-    let url = $(".music__show").attr('data-url');
+  $('.music__show').click(function() {
+    let mname = $(this).attr('data-mname');
+    let url = $(this).attr('data-url');
     let id = url.match(/[\/?=]([a-zA-Z0-9_-]{11})[&\?]?/)[1];
     let movie = `<iframe width="480" height="270" src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-    let playtime = $(".music__show").attr('data-playtime');
+    let artist = $(this).attr("data-artist")
+    let playtime = $(this).attr('data-playtime');
+    let content = $(this).attr('data-mcontent');
 
     $("body").find('.modal__mname__right').text(mname);
     $("body").find('.modal__url__right').append(movie);
     $("body").find('.modal__playtime__right').text(playtime);
+    $("body").find('.modal__content__right').text(content);
 //音楽詳細ページモーダルここまで
   });
 

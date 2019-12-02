@@ -149,11 +149,33 @@ body {
 }
 
 .main__left__content {
+  position: relative;
   box-sizing: border-box;
   height:280px;
   width:250px;
   background-color:white;
   margin:0 20px 20px 0;
+}
+
+.button_to{
+  top:0;
+  position:absolute;
+} 
+
+#plike-button {
+  background-color: white;
+  color: #35b7e4;
+  &__none {
+    color:gray;
+  }
+}
+
+#mlike-button {
+  background-color: white;
+  color: #FF5F17;
+  &__none {
+    color:gray;
+  }
 }
 
 .place__show:hover {
@@ -202,7 +224,11 @@ body {
     font-size:18px;
     font-weight:bold;
   }
+  &__artist{
+    font-size:12px;
+  }
   &__playtime {
     font-size: 12px;
+    color:#888888
   }
 }

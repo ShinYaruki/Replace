@@ -1,0 +1,3 @@
+$("#mlike-button").click(function(){
+  $("#mlike-button").html("<%= j(render partial: 'mlike', locals: { musics: @musics, mlikes: @mlikes }) %>");
+})
