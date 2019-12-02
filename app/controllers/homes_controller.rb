@@ -3,26 +3,12 @@ class HomesController < ApplicationController
   def index
     @places = Place.all
     @musics = Music.all
+    places = @places
+    @myplaces = current_user.places
+    musics = @musics
+    @mymusics = current_user.musics
     @place = Place.new
-    @music = Music.new
+    @music = Music.new 
   end
 
-  # def new
-  #   @music = Music.new
-  #   @place = Place.new
-  # end
-
-  # def create
-  #     @place = Place.create(place_params)
-  #     @place.save
-  # end
-
-  # private
-  # def music_params
-  #   params.require(:music).permit(:url,:name,:address,:content)
-  # end
-
-  # def place_params
-  #   params.require(:place).permit(:image,:name,:address,:content)
-  # end
 end

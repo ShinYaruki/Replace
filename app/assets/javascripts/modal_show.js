@@ -66,7 +66,7 @@ $('.place__show').click(function() {
   let station = $(this).attr('data-station');
   let walk = $(this).attr('data-walk');
   let open = $(this).attr('data-open');
-  let close = $(this).attr('data-pclose');
+  let close = $(this).attr('data-close');
   let number = $(this).attr('data-number');
   let sheet = $(this).attr('data-sheet');
   let pcheckbox = $(this).attr('data-pcheckbox');
@@ -136,6 +136,7 @@ $('.place__show').click(function() {
     let content = $(this).attr('data-mcontent');
 
     $("body").find('.modal__mname__right').text(mname);
+    $("body").find('.modal__artist__right').text(artist);
     $("body").find('.modal__url__right').append(movie);
     $("body").find('.modal__playtime__right').text(playtime);
     $("body").find('.modal__content__right').text(content);
