@@ -88,28 +88,24 @@ body {
       width:35%;
       cursor: pointer;
       background-color:#AAAAAA;
-      transition:all 0.5s;
+      transition:all 0.3s;
       margin-top:3px;
     }
     &__title:hover {
-      background-color:#000022;
+      background-color:#636381;
     }
   }
   &__right {
-    height:100vh;
+    height:100%;
     width:20%;
-    background-color: #AAAAAA;
+    border:2px solid #FFCC00;
     &__about {
-      text-align:center;
-      font-size:24px;
+      font-size:20px;
+      text-align: center;
       color:yellow;
       text-shadow: 0 2px 0 black;
       font-weight:bold;
-      height:100vh;
-      background-color: white;
-      margin:5px;
-      padding-top:5px;
-      border-radius: 5px;
+      margin:3px auto 0 auto;
     }
   }
 }
@@ -157,7 +153,6 @@ body {
   display:block;
 }
 
-
 .main__left__content {
   position: relative;
   box-sizing: border-box;
@@ -166,6 +161,56 @@ body {
   background-color:white;
   margin:0 20px 20px 0;
 }
+
+.main__right__top {
+  background-color:#FFCC00;
+}
+
+.main__right__title {
+  width:50%;
+  height:28px;
+  color:white;
+  font-weight:bold;
+  text-align: center;
+  line-height:28px;
+  cursor:pointer;
+  background-color:#AAAAAA;
+  transition:all 0.3s;
+}
+
+.main__right__title:hover {
+  background-color: rgb(238, 213, 116);
+}
+
+.main__right__title.rankactive {
+  width:50%;
+  height:28px;
+  background-color:#FFCC00;
+}
+
+.main__right__tag {
+  display:flex;
+  text-align:center;
+}
+
+.main__right__contents {
+  margin: 0 auto;
+  display:none;
+}
+
+.main__right__contents.rankshow {
+  display: block;
+}
+
+.main__right__content {
+  position: relative;
+  box-sizing: border-box;
+  height:280px;
+  width:250px;
+  background-color:white;
+  margin:10px auto;
+}
+
 
 .button_to{
   top:0;
@@ -257,12 +302,16 @@ body {
     width:25%;
     cursor: pointer;
     background-color:#AAAAAA;
-    transition:all 0.5s;
-    margin-top:10px;
+    transition:all 0.3s;
+    margin-top:5px;
   }
   &__title:hover {
-    background-color:#000022;
+    background-color:#636381;
   }
+}
+
+.mypage__tag__title:first-child {
+  border-left: solid #FFF;
 }
 
 .mypage__tag__title.myactive {
@@ -289,3 +338,5 @@ body {
   background-color:white;
   margin:0 20px 20px 0;
 }
+
+// ランキングコーナーCSS

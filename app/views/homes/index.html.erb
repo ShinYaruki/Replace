@@ -76,7 +76,6 @@
 
     <%# マイページタブ内の記述 %>
     <div class="main__left__contents">
-    <% if user_signed_in? %>
       <%# マイページタブ内のタグの記述 %>
       <div class="mypage__tag">
         <div class="mypage__tag__title myactive">
@@ -96,7 +95,7 @@
         </div>
       </div>
       <%# マイページタブ内のタグの記述ここまで %>
-
+      <% if user_signed_in? %>
         <%# PLACE投稿履歴の記述(showクラスによってデフォルトはここを表示) %>
         <div class="mypage__contents myshow">
           <% @myplaces.each do |myplace| %>
@@ -137,32 +136,118 @@
         <%# MUSIC投稿履歴記述ここまで %>
         <%# PLACE投稿お気に入り記述 %>
         <div class="mypage__contents">
-        
+        <% if @likeplaces %>
+          <% @likeplaces.each do |likeplace| %>
+            <div class="mypage__content place__show" data-pname="<%= likeplace.name %>" 
+            data-address="<%= likeplace.address %>"
+            data-open="<%= likeplace.open %>" data-close="<%= likeplace.close %>" 
+            data-number="<%= likeplace.number %>" data-sheet="<%= likeplace.sheet %>"
+            data-content="<%= likeplace.content %>" data-station="<%= likeplace.station %>" data-walk="<%= likeplace.walk %>" 
+            data-pcheckbox="<% likeplace.ptags.each do |ptag| %> 
+                              <div class='check-icon'> <%= ptag.name %> </div> 
+                            <% end %>" >
+              <img class="content__img" src="<%= likeplace.image %>" >
+              <p class="content content__store"><%= likeplace.name %>
+              <p class="content content__address"><%= likeplace.address %>
+              <p class="content content__open">営業時間：<%= likeplace.open %> 〜 <%= likeplace.close %>
+              <p class="content content__station">最寄り駅：<%= likeplace.station %> <%= likeplace.walk %>
+            </div>
+          <% end %>
+        <% else %>
+        <p>お気に入りはありません
+        <% end %>
         </div>
         <%# PLACEお気に入り記述ここまで %>
         <%# MUSICお気に入り記述 %>
         <div class="mypage__contents">
+          <% if @likemusics %>
+          <% @likemusics.each do |likemusic| %>
+            <div class="mypage__content music__show" 
+        data-mname="<%= likemusic.name %>" data-url="<%= likemusic.url %>" data-artist="<%= likemusic.artist %>"
+        data-playtime="<%= likemusic.playtime %>" data-mcontent="<%= likemusic.content %>">
+              <div class="youtube content__movie">
+                <iframe data-src="<%= likemusic.url %>"></iframe>
+              </div>
+              <div class="mshow">
+                <p class="content content__title"><%= likemusic.name %>
+                <p class="content content__artist">アーティスト：<%= likemusic.artist %>
+                <p class="content content__playtime">再生時間：<%= likemusic.playtime %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+        <p>お気に入りはありません
+        <% end %>
         </div>
         <%# MUSICお気に入り記述ここまで %>
 
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"user__destroy" %>
     <%# マイページタブ内の記述ここまで %>
-  <%# main__leftの記述ここまで %>
     <% else %>
       <p>ログインすると使えるようになるよ！
     <% end %>
   </div>
 </div>
+<%# main__leftの記述ここまで %>
 
+<%# main__rightの記述 %>
   <%# 人気ランキング的なものにしたいゾーン %>
   <div class="main__right">
-    <div class="main__right__about">
-      人気のスポット
-        <div class="main__right__popular">
-        </div>
+    <div class="main__right__top">
+    <p class="main__right__about">お気に入りランキング<p>
     </div>
+    <%# ランキングのPLACE、MUSICのタブゾーン %>
+    <div class="main__right__tag">
+      <div class="main__right__title rankactive">
+        <p id="rankplace",class="rankplace-text" >PLACE
+      </div>
+      <div class="main__right__title">
+        <p id="rankmusic",class="rankmusic-text" >MUSIC
+      </div>
+    </div>
+    <%# ランキングのPLACE、MUSICのタブゾーンここまで %>
+    <%# PLACEの人気ランキングゾーン %>
+    <div class="main__right__contents rankshow">
+      <% @rankplaces.each do |rankplace| %>
+        <div class="main__right__content place__show" 
+          data-pname="<%= rankplace.name %>" data-address="<%= rankplace.address %>"
+          data-open="<%= rankplace.open %>" data-close="<%= rankplace.close %>" 
+          data-number="<%= rankplace.number %>" data-sheet="<%= rankplace.sheet %>"
+          data-content="<%= rankplace.content %>" data-station="<%= rankplace.station %>" data-walk="<%= rankplace.walk %>" 
+          data-pcheckbox="<% rankplace.ptags.each do |ptag| %> 
+                            <div class='check-icon'> <%= ptag.name %> </div> 
+                          <% end %>" >
+          <img class="content__img" src="<%= rankplace.image %>" >
+          <%= render partial:"/plikes/plike",locals: { place: rankplace } %>
+          <p class="content content__store"><%= rankplace.name %>
+          <p class="content content__address"><%= rankplace.address %>
+          <p class="content content__open">営業時間：<%= rankplace.open %> 〜 <%= rankplace.close %>
+          <p class="content content__station">最寄り駅：<%= rankplace.station %> <%= rankplace.walk %>
+        </div>
+      <% end %>
+    </div>
+    <%# PLACEの人気ランキングゾーンここまで %>
+    <%# MUSICの人気ランキングゾーンここから %>
+    <div class="main__right__contents">
+      <% @rankmusics.each do |rankmusic| %>
+        <div class="main__right__content music__show" 
+          data-mname="<%= rankmusic.name %>" data-url="<%= rankmusic.url %>" data-artist="<%= rankmusic.artist %>"
+          data-playtime="<%= rankmusic.playtime %>" data-mcontent="<%= rankmusic.content %>">
+          <div class="youtube content__movie">
+            <iframe data-src="<%= rankmusic.url %>"></iframe>
+          </div>
+          <div class="mshow">
+            <p class="content content__title"><%= rankmusic.name %>
+            <p class="content content__artist">アーティスト：<%= rankmusic.artist %>
+            <p class="content content__playtime">再生時間：<%= rankmusic.playtime %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%# MUSICの人気ランキングゾーンここまで %>
   </div>
 <%# 人気ランキング的なものにしたいゾーンここまで %>
+<%# main__rightの記述ここまで %>
 </div>
 <%# メインコンテンツコーナー終了 %>
 

@@ -1,4 +1,5 @@
 class MlikesController < ApplicationController
+  
   def create
     @mlike = Mlike.create(user_id: current_user.id, music_id: params[:music_id])
     @mlikes = Mlike.where(muisc_id: params[:music_id])
@@ -11,4 +12,5 @@ class MlikesController < ApplicationController
     @mlikes = Mlike.where(music_id: params[:music_id])
     @musics = Music.all
   end
+
 end
