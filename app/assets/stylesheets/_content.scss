@@ -99,6 +99,7 @@ body {
     height:100%;
     width:20%;
     border:2px solid #FFCC00;
+    margin-bottom:3px;
     &__about {
       font-size:20px;
       text-align: center;
@@ -338,3 +339,15 @@ body {
 }
 
 // ランキングコーナーCSS
+
+footer {
+  height:40px;
+  background-color: #663333;
+}
+
+.footer__content {
+  color:white;
+  line-height:40px;
+  font-size:10px;
+  text-align:end;
+}

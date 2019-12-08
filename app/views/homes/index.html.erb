@@ -16,17 +16,25 @@
     <div class="main__left__tag">
       <div class="main__left__title active">
         <p id="place",class="place-text menu-item" >PLACE
+        <% if user_signed_in? %>
           <i class="open-place icon fas fa-pencil-alt"></i>
+        <% end %>
       </div>
     
       <div class="main__left__title">
         <p id="music",class="music-text menu-item" >MUSIC
+        <% if user_signed_in? %>
           <i class="open-music icon fas fa-pencil-alt"></i>
+        <% end %>
       </div>
 
       <div class="main__left__title">
         <p id="mypage",class="menu-item" >マイページ
-        <a href="#"><i class="icon fas fa-cog"></i></a>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path, method: :delete, class:"user__destroy" do %>
+          <i class="icon fas fa-door-open"></i>
+          <% end %>
+        <% end %>
       </div>
     </div>
     <%# タブボタンの記述ここまで %>
@@ -34,25 +42,25 @@
     <%# PLACEタブ内の記述(showクラスによってデフォルトはここを表示) %>
     <div class="main__left__box show">
       <div class="main__left__search">
-        <div class="main__left__contents">
-          <% @places.each do |place| %>
-            <div class="main__left__content place__show" 
-            data-pname="<%= place.name %>" data-address="<%= place.address %>"
-            data-open="<%= place.open %>" data-close="<%= place.close %>" 
-            data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
-            data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
-            data-pcheckbox="<% place.ptags.each do |ptag| %> 
-                            <div class='check-icon'> <%= ptag.name %> </div> 
-                          <% end %>" >
-              <img class="content__img" src="<%= place.image %>" >
-              <%= render partial:"/plikes/plike",locals: { place: place } %>
-              <p class="content content__store"><%= place.name %>
-              <p class="content content__address"><%= place.address %>
-              <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
-              <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
-            </div>
-          <% end %>
-        </div>
+      </div>
+      <div class="main__left__contents">
+        <% @places.each do |place| %>
+          <div class="main__left__content place__show" 
+          data-pname="<%= place.name %>" data-address="<%= place.address %>"
+          data-open="<%= place.open %>" data-close="<%= place.close %>" 
+          data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
+          data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
+          data-pcheckbox="<% place.ptags.each do |ptag| %> 
+                          <div class='check-icon'> <%= ptag.name %> </div> 
+                        <% end %>" >
+            <img class="content__img" src="<%= place.image %>" >
+            <%= render partial:"/plikes/plike",locals: { place: place } %>
+            <p class="content content__store"><%= place.name %>
+            <p class="content content__address"><%= place.address %>
+            <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
+            <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
+          </div>
+        <% end %>
       </div>
     </div>
     <%# PLACEタブ内の記述ここまで %>    
@@ -188,8 +196,6 @@
         <% end %>
         </div>
         <%# MUSICお気に入り記述ここまで %>
-
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"user__destroy" %>
     <%# マイページタブ内の記述ここまで %>
     <% else %>
       <p>ログインすると使えるようになるよ！
