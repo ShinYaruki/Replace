@@ -32,50 +32,58 @@
     <%# タブボタンの記述ここまで %>
 
     <%# PLACEタブ内の記述(showクラスによってデフォルトはここを表示) %>
-    <div class="main__left__contents show">
-      <% @places.each do |place| %>
-        <div class="main__left__content place__show" 
-        data-pname="<%= place.name %>" data-address="<%= place.address %>"
-        data-open="<%= place.open %>" data-close="<%= place.close %>" 
-        data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
-        data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
-        data-pcheckbox="<% place.ptags.each do |ptag| %> 
-                        <div class='check-icon'> <%= ptag.name %> </div> 
-                      <% end %>" >
-          <img class="content__img" src="<%= place.image %>" >
-          <%= render partial:"/plikes/plike",locals: { place: place } %>
-          <p class="content content__store"><%= place.name %>
-          <p class="content content__address"><%= place.address %>
-          <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
-          <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
+    <div class="main__left__box show">
+      <div class="main__left__search">
+        <div class="main__left__contents">
+          <% @places.each do |place| %>
+            <div class="main__left__content place__show" 
+            data-pname="<%= place.name %>" data-address="<%= place.address %>"
+            data-open="<%= place.open %>" data-close="<%= place.close %>" 
+            data-number="<%= place.number %>" data-sheet="<%= place.sheet %>"
+            data-content="<%= place.content %>" data-station="<%= place.station %>" data-walk="<%= place.walk %>" 
+            data-pcheckbox="<% place.ptags.each do |ptag| %> 
+                            <div class='check-icon'> <%= ptag.name %> </div> 
+                          <% end %>" >
+              <img class="content__img" src="<%= place.image %>" >
+              <%= render partial:"/plikes/plike",locals: { place: place } %>
+              <p class="content content__store"><%= place.name %>
+              <p class="content content__address"><%= place.address %>
+              <p class="content content__open">営業時間：<%= place.open %> 〜 <%= place.close %>
+              <p class="content content__station">最寄り駅：<%= place.station %> <%= place.walk %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
     <%# PLACEタブ内の記述ここまで %>    
 
     <%# MUSICタブ内の記述 %>
-    <div class="main__left__contents">
-      <% @musics.each do |music| %>
-      <div class="main__left__content music__show"
-        data-mname="<%= music.name %>" data-url="<%= music.url %>" data-artist="<%= music.artist %>"
-        data-playtime="<%= music.playtime %>" data-mcontent="<%= music.content %>" >
-        <a href="#"><i class="icon fas fa-cog music-show"></i></a>
-        <div class="youtube content__movie">
-          <iframe data-src="<%= music.url %>"></iframe>
-        </div>
-        <%= render partial:"/mlikes/mlike",locals: { music: music } %>
-        <div class="mshow">
-          <p class="content content__title"><%= music.name %>
-          <p class="content content__artist">アーティスト：<%= music.artist %>
-          <p class="content content__playtime">再生時間：<%= music.playtime %>
+    <div class="main__left__box">
+      <div class="main__left__search">
+        <div class="main__left__contents">
+          <% @musics.each do |music| %>
+          <div class="main__left__content music__show"
+            data-mname="<%= music.name %>" data-url="<%= music.url %>" data-artist="<%= music.artist %>"
+            data-playtime="<%= music.playtime %>" data-mcontent="<%= music.content %>" >
+            <a href="#"><i class="icon fas fa-cog music-show"></i></a>
+            <div class="youtube content__movie">
+              <iframe data-src="<%= music.url %>"></iframe>
+            </div>
+            <%= render partial:"/mlikes/mlike",locals: { music: music } %>
+            <div class="mshow">
+              <p class="content content__title"><%= music.name %>
+              <p class="content content__artist">アーティスト：<%= music.artist %>
+              <p class="content content__playtime">再生時間：<%= music.playtime %>
+            </div>
+          </div>
+          <% end %>
         </div>
       </div>
-      <% end %>
     </div> 
     <%# MUSICタブ内の記述ここまで %>
 
     <%# マイページタブ内の記述 %>
-    <div class="main__left__contents">
+    <div class="main__left__box">
       <%# マイページタブ内のタグの記述 %>
       <div class="mypage__tag">
         <div class="mypage__tag__title myactive">
@@ -185,7 +193,7 @@
     <%# マイページタブ内の記述ここまで %>
     <% else %>
       <p>ログインすると使えるようになるよ！
-    <% end %>
+      <% end %>
   </div>
 </div>
 <%# main__leftの記述ここまで %>
@@ -236,6 +244,7 @@
           <div class="youtube content__movie">
             <iframe data-src="<%= rankmusic.url %>"></iframe>
           </div>
+          <%= render partial:"/mlikes/mlike",locals: { music: rankmusic } %>
           <div class="mshow">
             <p class="content content__title"><%= rankmusic.name %>
             <p class="content content__artist">アーティスト：<%= rankmusic.artist %>

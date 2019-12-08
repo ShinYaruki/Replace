@@ -12,7 +12,7 @@ $(function()  {
 // 何番目の要素がクリックされたかを、配列tabsから要素番号を取得
     const index = tabs.index(this);
 // showクラスを探し、最初のshowクラスを削除、その後クリックしたタブにshowクラスを追加する(該当コンテンツページが表示される)
-    $(".main__left__contents").removeClass("show").eq(index).addClass("show");};
+    $(".main__left__box").removeClass("show").eq(index).addClass("show");};
 // Place,Music,マイページの3タブを切り替える関数の記述ここまで
 
 // タブがクリックされたらtabSwitch関数を呼び出す

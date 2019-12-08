@@ -133,24 +133,21 @@ body {
   color:white;
 }
 
+.main__left__box {
+  display:none;
+  width:100%;
+}
+
+.main__left__box.show {
+  display:block;
+}
+
 .main__left__contents {
   overflow: scroll;
   width:100%;
   padding:20px 0 0 20px;
   flex-wrap: wrap;
-  display:none;
-}
-
-.main__left__contents.show {
   display:flex;
-}
-
-.main__left__contents:last-child {
-  padding: 0;
-}
-
-.main__left__contents.show:last-child {
-  display:block;
 }
 
 .main__left__content {
@@ -290,6 +287,7 @@ body {
 
 // マイページ用css
 .mypage__tag {
+  width:100%;
   display:flex;
   &__title {
     position: relative;
