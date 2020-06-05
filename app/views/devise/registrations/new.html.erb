@@ -1,59 +1,47 @@
 <div class="user_wrapper">
-  <div class="user__main__left">
+  <div class="user__main">
     新規登録
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= f.label :nickname %> <em>(6 characters maximum)</em><br />
+        <%= f.label :"ユーザーネーム" %> <em>(6文字以内)</em><br />
         <%= f.text_field :nickname, autofocus: true, maxlength: "6" %>
       </div>
 
 
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :"メールアドレス" %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
 
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :パスワード %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <em>(<%= @minimum_password_length %>文字以上)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation %><br />
+        <%= f.label :"もう一度パスワードを入力" %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign up" %>
+        <%= f.submit "登録する" %>
       </div>
     <% end %>
-
-    <%= render "devise/shared/links" %>
   </div>
 
-  <div class="user__main__middle">
-    既にアカウントをお持ちの方
-    <div class="login">
-      <%= link_to "ログイン", new_user_session_path %>
+    SNSアカウントで登録<br/>
+  <%= link_to user_facebook_omniauth_authorize_path, method: :post do %>
+    <div class="facebook-icon">
+      <i class="fab fa-facebook-square"></i>
+      Sign in with Facebook
     </div>
-  </div>
-
-  <div class="user__main__right">
-
-    SNSアカウントでログイン(仮設置)
-      <div class="twitter">
-      Twitterでログイン
-      </div>
-      <div class="instagram">
-      Instagramでログイン
-      </div>
-      <div class="google">
-      Googleでログイン
-      </div>
+  <% end %>
+  <br/>
+  <%= link_to image_tag("/assets/images/btn_google_signin_light_focus_web@2x.png" , width: "200" ), user_google_oauth2_omniauth_authorize_path, method: :post %>
 </div>

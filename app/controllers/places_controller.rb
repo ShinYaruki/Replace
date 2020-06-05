@@ -6,27 +6,28 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.create(place_params)
-    @place.save
+    @place.save!
     redirect_to root_path
-    # if @place.save
-    #   respond_to do |format|
-    #     format.html {redirect_to root_path}
-    #     format.json
-    #   end
-    # end
   end
 
-  # def edit
-  # end
+  def edit
+    @place = Plade.find(params[:id])
+  end
 
-  # def update
-  # end
+  def update
+    @place = Place.update(place_params)
+    redirect_to root_path
+  end
 
   def show
   end
 
+  def search
+    
+  end
+
   private
   def place_params
-    params.require(:place).permit(:image,:name,:address,:open,:close,:number,:content,:sheet,:station,:walk,ptag_ids: [])
+    params.require(:place).permit(:image,:name,:address,:open,:close,:number,:content,:sheet,:station,:walk,ptag_ids: []).merge(user_id: current_user.id)
   end
 end

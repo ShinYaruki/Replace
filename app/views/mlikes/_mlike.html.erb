@@ -1,0 +1,24 @@
+<% if user_signed_in? %>
+  <% if music.mlike_user(current_user.id) %>
+    <%= button_to music_mlike_path(music, music_id: music.id), method: :delete, id: "mlike-button", remote: true do %>
+      <i class="fas fa-heart"></i>
+      <span>
+        <%= music.mlikes_count %>
+      </span>
+    <% end %>
+  <% else %>
+    <%= button_to music_mlikes_path(music), id: "mlike-button__none",method: :post, remote: true do %>
+      <i class="fas fa-heart"></i>
+      <span>
+        <%= music.mlikes_count %>
+      </span>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= button_to root_path,method: :get, remote: true, id: "mlike-button__none" do %>
+    <i class="fas fa-heart"></i>
+      <span>
+        <%= music.mlikes_count %>
+      </span>
+  <% end %>
+<% end %>

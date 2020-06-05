@@ -1,16 +1,15 @@
 <div class="user_wrapper">
-  <div class="user__main__left">
-
-    Log in
+  <div class="user_signin">
+    メールアドレスでログイン
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :email %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
 
       <div class="field">
-        <%= f.label :password %><br />
+        <%= f.label :password %>
         <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
 
@@ -26,7 +25,14 @@
       </div>
     <% end %>
 
-    <%= render "devise/shared/links" %>
+        SNSアカウントでログイン(仮設置)
+    <%= link_to user_facebook_omniauth_authorize_path, method: :post do %>
+      <div class="facebook-icon">
+        <i class="fab fa-facebook-square"></i>
+        Sign in with Facebook
+      </div>
+    <% end %>
+    <%= link_to image_tag("/assets/images/btn_google_signin_light_focus_web@2x.png" , width: "200" ), user_google_oauth2_omniauth_authorize_path, method: :post %>
 
   </div>
 </div>

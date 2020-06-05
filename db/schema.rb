@@ -10,15 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_071847) do
+ActiveRecord::Schema.define(version: 2019_12_08_144031) do
+
+  create_table "mlikes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "music_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "music_id"], name: "index_mlikes_on_user_id_and_music_id", unique: true
+  end
 
   create_table "musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "url"
     t.text "name"
+    t.text "artist"
     t.text "playtime"
     t.text "content"
+    t.bigint "mlikes_count"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "place_favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "place_id"], name: "index_place_favorites_on_user_id_and_place_id", unique: true
   end
 
   create_table "place_ptags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -29,18 +48,28 @@ ActiveRecord::Schema.define(version: 2019_11_25_071847) do
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "name", null: false
-    t.text "address", null: false
+    t.text "name"
+    t.text "address"
     t.text "image"
     t.text "content"
-    t.text "open", null: false
-    t.text "close", null: false
-    t.text "number", null: false
+    t.text "open"
+    t.text "close"
+    t.text "number"
     t.text "sheet"
     t.text "station"
     t.text "walk"
+    t.bigint "plikes_count"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "plikes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "place_id"], name: "index_plikes_on_user_id_and_place_id", unique: true
   end
 
   create_table "ptags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -58,6 +87,10 @@ ActiveRecord::Schema.define(version: 2019_11_25_071847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nickname"
+    t.string "uid"
+    t.string "provider"
+    t.string "name"
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -11,6 +11,8 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.text :sheet
       t.text :station
       t.text :walk
+      t.bigint :plikes_count
+      t.integer :user_id, foreign_key: true
       t.timestamps
     end
   end
