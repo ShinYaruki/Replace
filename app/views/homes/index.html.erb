@@ -15,26 +15,21 @@
     <%# タブボタンの記述 %>  
     <div class="main__left__tag">
       <div class="main__left__title active">
-        <p id="place",class="place-text menu-item" >PLACE
+        <p class="place-text menu-item" >PLACE
         <% if user_signed_in? %>
           <i class="open-place icon fas fa-pencil-alt"></i>
         <% end %>
       </div>
     
       <div class="main__left__title">
-        <p id="music",class="music-text menu-item" >MUSIC
+        <p class="music-text menu-item" >MUSIC
         <% if user_signed_in? %>
           <i class="open-music icon fas fa-pencil-alt"></i>
         <% end %>
       </div>
 
       <div class="main__left__title">
-        <p id="mypage",class="menu-item" >マイページ
-        <% if user_signed_in? %>
-          <%= link_to destroy_user_session_path, method: :delete, class:"user__destroy" do %>
-          <i class="icon fas fa-door-open"></i>
-          <% end %>
-        <% end %>
+        <p class="menu-item" >FAVORITE
       </div>
     </div>
     <%# タブボタンの記述ここまで %>
@@ -73,7 +68,6 @@
           <div class="main__left__content music__show"
             data-mname="<%= music.name %>" data-url="<%= music.url %>" data-artist="<%= music.artist %>"
             data-playtime="<%= music.playtime %>" data-mcontent="<%= music.content %>" >
-            <a href="#"><i class="icon fas fa-cog music-show"></i></a>
             <div class="youtube content__movie">
               <iframe data-src="<%= music.url %>"></iframe>
             </div>
@@ -95,63 +89,17 @@
       <%# マイページタブ内のタグの記述 %>
       <div class="mypage__tag">
         <div class="mypage__tag__title myactive">
-          <p id="myplace",class="myplace-text menu-item" >PLACE投稿履歴
+          <p class="menu-item" >PLACEお気に入り
         </div>
 
         <div class="mypage__tag__title">
-          <p id="mymusic",class="mymusic-text menu-item" >MUSIC投稿履歴
-        </div>
-
-        <div class="mypage__tag__title">
-          <p id="likeplace",class="likeplace-text menu-item" >PLACEお気に入り
-        </div>
-
-        <div class="mypage__tag__title">
-          <p id="likemusic",class="likemusic-text menu-item" >MUSICお気に入り
+          <p class="menu-item" >MUSICお気に入り
         </div>
       </div>
       <%# マイページタブ内のタグの記述ここまで %>
       <% if user_signed_in? %>
-        <%# PLACE投稿履歴の記述(showクラスによってデフォルトはここを表示) %>
+        <%# PLACE投稿お気に入り記述(デフォルトではここを表示) %>
         <div class="mypage__contents myshow">
-          <% @myplaces.each do |myplace| %>
-            <div class="mypage__content place__show" data-pname="<%= myplace.name %>" 
-            data-address="<%= myplace.address %>"
-            data-open="<%= myplace.open %>" data-close="<%= myplace.close %>" 
-            data-number="<%= myplace.number %>" data-sheet="<%= myplace.sheet %>"
-            data-content="<%= myplace.content %>" data-station="<%= myplace.station %>" data-walk="<%= myplace.walk %>" 
-            data-pcheckbox="<% myplace.ptags.each do |ptag| %> 
-                              <div class='check-icon'> <%= ptag.name %> </div> 
-                            <% end %>" >
-              <img class="content__img" src="<%= myplace.image %>" >
-              <p class="content content__store"><%= myplace.name %>
-              <p class="content content__address"><%= myplace.address %>
-              <p class="content content__open">営業時間：<%= myplace.open %> 〜 <%= myplace.close %>
-              <p class="content content__station">最寄り駅：<%= myplace.station %> <%= myplace.walk %>
-            </div>
-          <% end %>
-        </div>
-        <%# PLACE投稿履歴記述ここまで %>
-        <%# MUSIC投稿履歴記述 %>
-        <div class="mypage__contents">
-          <% @mymusics.each do |mymusic| %>
-            <div class="mypage__content music__show" 
-        data-mname="<%= mymusic.name %>" data-url="<%= mymusic.url %>" data-artist="<%= mymusic.artist %>"
-        data-playtime="<%= mymusic.playtime %>" data-mcontent="<%= mymusic.content %>">
-              <div class="youtube content__movie">
-                <iframe data-src="<%= mymusic.url %>"></iframe>
-              </div>
-              <div class="mshow">
-                <p class="content content__title"><%= mymusic.name %>
-                <p class="content content__artist">アーティスト：<%= mymusic.artist %>
-                <p class="content content__playtime">再生時間：<%= mymusic.playtime %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <%# MUSIC投稿履歴記述ここまで %>
-        <%# PLACE投稿お気に入り記述 %>
-        <div class="mypage__contents">
         <% if @likeplaces %>
           <% @likeplaces.each do |likeplace| %>
             <div class="mypage__content place__show" data-pname="<%= likeplace.name %>" 
@@ -170,7 +118,7 @@
             </div>
           <% end %>
         <% else %>
-        <p>お気に入りはありません
+        <p>お気に入りはありません。
         <% end %>
         </div>
         <%# PLACEお気に入り記述ここまで %>
@@ -192,14 +140,14 @@
             </div>
           <% end %>
         <% else %>
-        <p>お気に入りはありません
+        <p>お気に入りはありません。
         <% end %>
         </div>
         <%# MUSICお気に入り記述ここまで %>
     <%# マイページタブ内の記述ここまで %>
     <% else %>
-      <p>ログインすると使えるようになるよ！
-      <% end %>
+      <p>ログインすると使えるようになります。
+    <% end %>
   </div>
 </div>
 <%# main__leftの記述ここまで %>
@@ -213,16 +161,18 @@
     <%# ランキングのPLACE、MUSICのタブゾーン %>
     <div class="main__right__tag">
       <div class="main__right__title rankactive">
-        <p id="rankplace",class="rankplace-text" >PLACE
+        <p>PLACE
       </div>
       <div class="main__right__title">
-        <p id="rankmusic",class="rankmusic-text" >MUSIC
+        <p >MUSIC
       </div>
     </div>
     <%# ランキングのPLACE、MUSICのタブゾーンここまで %>
     <%# PLACEの人気ランキングゾーン %>
     <div class="main__right__contents rankshow">
       <% @rankplaces.each do |rankplace| %>
+        <% number = 1 %>
+        <p><%= number %>
         <div class="main__right__content place__show" 
           data-pname="<%= rankplace.name %>" data-address="<%= rankplace.address %>"
           data-open="<%= rankplace.open %>" data-close="<%= rankplace.close %>" 
@@ -425,8 +375,8 @@ $('#edit-place').click(function(){
         });
       });
     //モーダルを消す記述ここまで
-      });
+    });
     //編集機能モーダルここから
     //Music編
-  });
+});
 </script>

@@ -1,5 +1,5 @@
 a:visited {
-  color: white;
+  color: black;
 }
 
 body {
@@ -25,30 +25,35 @@ body {
 }
 
 .top__content {
-    box-sizing: border-box;
-    background-color:#EEEEEE;
-    height:60px;
-    line-height:60px;
-    display:flex;
-    justify-content: space-between;
-    margin:auto 0;
-    padding: 0 20px;
-    &__left a {
-        color:black;
-        font-family:fantasy;
-        font-size:20px;
-        margin-left:10px;
-    }
-    &__right {
-      display: flex;
-      &__icon a {
-        color:black;
-        padding-left: 15px;
-      }
+  box-sizing: border-box;
+  background-color:#EEEEEE;
+  height:60px;
+  line-height:60px;
+  display:flex;
+  justify-content: space-between;
+  margin:auto 0;
+  padding: 0 30px;
+  &__left a {
+      color:black;
+      font-family:fantasy;
+      font-size:20px;
+      margin-left:10px;
+  }
+  &__right {
+    display: flex;
+    &__icon {
+      padding-top:5px;
+      font-family:fantasy;
+      margin-right:30px;
+      color:black;
+      text-align: center;
+      cursor: pointer;
     }
   }
+}
 
-.header__back {
+
+  .header__back {
   margin-top:90px;
   background-image:url(/black_back.jpeg);
   background-size: contain;
@@ -82,8 +87,8 @@ body {
       color:white;
       font-weight:bold;
       text-align: center;
-      line-height:60px;
-      height:60px;
+      line-height:30px;
+      height:30px;
       border-right: solid #FFF;
       width:35%;
       cursor: pointer;
@@ -129,8 +134,8 @@ body {
 
 .icon {
   position: absolute;
-  top:40px;
-  right:3px;
+  top:7px;
+  right:5px;
   color:white;
 }
 
@@ -209,8 +214,7 @@ body {
   margin:10px auto;
 }
 
-
-.button_to{
+.button_to {
   top:0;
   position:absolute;
 } 
@@ -295,10 +299,10 @@ body {
     color:white;
     font-weight:bold;
     text-align: center;
-    line-height:60px;
-    height:60px;
+    line-height:30px;
+    height:30px;
     border-right: solid #FFF;
-    width:25%;
+    width:50%;
     cursor: pointer;
     background-color:#AAAAAA;
     transition:all 0.3s;
@@ -340,7 +344,44 @@ body {
 
 // ランキングコーナーCSS
 
+.nav-item {
+  position: relative;
+  color: #333;/* 文字色 */
+  text-decoration: none;
+}
+
+// .nav-item a {
+//   position: relative;
+//   display: block;
+//   color: #333;/* 文字色 */
+//   text-decoration: none;
+// }
+
+.nav-item::after {    
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 100%;/* 下線の幅 */
+  height: 3px;
+  background-color: #333;
+  opacity: 0;
+  transition: 0.2s;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.nav-item:hover::after {
+  -webkit-transform: translate(-50%, -5px);
+  transform: translate(-50%, -5px);
+  opacity: 1;
+}
+
 footer {
+  width:100%;
+  bottom:0px;
   height:40px;
   background-color: #663333;
 }

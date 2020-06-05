@@ -21,18 +21,18 @@
         </div>
         <div class="top__content">
           <div class="top__content__left">
-            <%= link_to "Replace" ,root_path %>
+            <a href="/">Replace</a>
           </div>
           <div class="top__content__right">
-            <div class="top__content__right__icon"><%= link_to "about" , root_path %></div>
+            <div class="top__content__right__icon nav-item">
+            <%= link_to "about", root_path %>
+            </div>
             <% if user_signed_in? %>
-              <div class="top__content__right__icon">
-                <%= link_to current_user.nickname , root_path %>
-              </div>
+              <%= link_to "#{current_user.nickname}", root_path, class:"top__content__right__icon nav-item" %>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"top__content__right__icon nav-item" %>
             <% else %>
-              <div class="top__content__right__icon">
-                <%= link_to "はじめる", new_user_registration_path,class:"top__content__right__icon" %>
-              </div>
+              <%= link_to "新規登録", new_user_registration_path, class:"sign-up top__content__right__icon nav-item" %>
+              <%= link_to "ログイン", new_user_session_path , class:"sign-in top__content__right__icon nav-item" %>
             <% end %>
           </div>
         </div>
